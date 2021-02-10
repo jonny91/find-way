@@ -19,15 +19,17 @@ public class Sample : MonoBehaviour
 
 	private void Start()
 	{
+		var offset = new Vector3((Map.Column - 1) / 2.0f, 0, (Map.Row - 1) / 2.0f);
+
 		for (int c = 0; c < Map.Column; c++)
 		{
 			for (int r = 0; r < Map.Row; r++)
 			{
 				var h = Addressables.InstantiateAsync("Floor");
-				var floorPrefab = h.WaitForCompletion();
-				var floor = Instantiate(floorPrefab, transform);
+				var floor = h.WaitForCompletion();
 				var f = floor.EnsureComponent<Floor>();
 				f.Pos = new int2(c, r);
+				f.transform.position = new Vector3(f.Pos.x, 0, f.Pos.y) - offset;
 				f.SetFloor(FloorType.Block);
 			}
 		}
