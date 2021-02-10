@@ -12,12 +12,15 @@ public class Map : MonoBehaviour
 	/// <summary>
 	/// 行
 	/// </summary>
-	[SerializeField]
-	private int Row;
+	public int Row;
 
 	/// <summary>
 	/// 列
 	/// </summary>
 	[SerializeField]
-	private int Column;
+	public int Column;
+
+	public void AddFloorCache(Floor floor)
+	{
+	}
 }

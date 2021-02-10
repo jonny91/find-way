@@ -8,6 +8,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Floor : MonoBehaviour
@@ -30,7 +31,7 @@ public class Floor : MonoBehaviour
 	/// <summary>
 	/// 地板的位置
 	/// </summary>
-	public Vector2Int Pos;
+	public int2 Pos;
 
 	/// <summary>
 	/// 设置地板类型
