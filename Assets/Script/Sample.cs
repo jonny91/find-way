@@ -11,11 +11,14 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Random = UnityEngine.Random;
 
 public class Sample : MonoBehaviour
 {
 	[SerializeField]
 	private Map Map;
+
+	public EditorAction EditorAction { get; set; }
 
 	private void Start()
 	{
@@ -28,10 +31,62 @@ public class Sample : MonoBehaviour
 				var h = Addressables.InstantiateAsync("Floor");
 				var floor = h.WaitForCompletion();
 				var f = floor.EnsureComponent<Floor>();
+				f.name = $"{r}_{c}";
 				f.Pos = new int2(c, r);
 				f.transform.position = new Vector3(f.Pos.x, 0, f.Pos.y) - offset;
-				f.SetFloor(FloorType.Block);
+
+				var rand = Random.Range(0, 100);
+				if (rand > 60)
+				{
+					f.SetFloor(FloorType.Block);
+				}
+				else
+				{
+					f.SetFloor(FloorType.None);
+				}
+
+				Map.AddFloorCache(f);
 			}
 		}
+	}
+
+	private void Update()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out var hit, float.MaxValue, LayerMask.GetMask("Floor")))
+			{
+				var hitFloor = hit.collider.GetComponent<Floor>();
+				if (hitFloor != null)
+				{
+					if (EditorAction == EditorAction.SET_DESTINATION)
+					{
+						Map.FindWayData.Destination = hitFloor;
+					}
+					else if (EditorAction == EditorAction.SET_ENTRANCE)
+					{
+						Map.FindWayData.Entrance = hitFloor;
+					}
+				}
+
+				SetAction(EditorAction.NONE);
+			}
+		}
+	}
+
+	public void SetDestination()
+	{
+		SetAction(EditorAction.SET_DESTINATION);
+	}
+
+	public void SetEntrance()
+	{
+		SetAction(EditorAction.SET_ENTRANCE);
+	}
+
+	private void SetAction(EditorAction act)
+	{
+		EditorAction = act;
 	}
 }

@@ -5,7 +5,10 @@
 //Description: 
 //=========================================
 
+using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Map : MonoBehaviour
 {
@@ -20,7 +23,31 @@ public class Map : MonoBehaviour
 	[SerializeField]
 	public int Column;
 
+	private FindWayData _findWayData = new FindWayData();
+
+	/// <summary>
+	/// 本局数据
+	/// </summary>
+	public FindWayData FindWayData => _findWayData;
+
 	public void AddFloorCache(Floor floor)
 	{
+		FindWayData.AddFloorCache(floor);
+	}
+
+	/// <summary>
+	/// 随机生成阻挡
+	/// </summary>
+	public void RandomBlock()
+	{
+		FindWayData.RandomBlock();
+	}
+
+	/// <summary>
+	/// 清理所有设置
+	/// </summary>
+	public void Clear()
+	{
+		FindWayData.Clear();
 	}
 }
