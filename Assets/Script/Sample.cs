@@ -18,7 +18,9 @@ public class Sample : MonoBehaviour
 	[SerializeField]
 	private Map Map;
 
-	public EditorAction EditorAction { get; set; }
+	public EditorAction EditorAction { get; set; } = EditorAction.NONE;
+
+	public FindWayOp FindWayOp;
 
 	private void Start()
 	{
@@ -58,7 +60,7 @@ public class Sample : MonoBehaviour
 			if (Physics.Raycast(ray, out var hit, float.MaxValue, LayerMask.GetMask("Floor")))
 			{
 				var hitFloor = hit.collider.GetComponent<Floor>();
-				if (hitFloor != null)
+				if (hitFloor != null && hitFloor.FloorType != FloorType.Block)
 				{
 					if (EditorAction == EditorAction.SET_DESTINATION)
 					{
@@ -88,5 +90,35 @@ public class Sample : MonoBehaviour
 	private void SetAction(EditorAction act)
 	{
 		EditorAction = act;
+	}
+
+	public void FindWay()
+	{
+		if (Map.FindWayData.OK)
+		{
+			if (FindWayOp.StartFindWay(Map, out var path))
+			{
+				ShowPath(path);
+				Debug.Log("ok");
+			}
+			else
+			{
+				Debug.LogError("没找到路径!!!");
+			}
+		}
+		else
+		{
+			Debug.LogError("出入口未设置...");
+		}
+	}
+
+	private void ShowPath(WayNode path)
+	{
+		while (!path.Parent.Equals(Map.FindWayData.Entrance.Pos))
+		{
+			path = FindWayOp[path.Parent];
+			var floor = Map.FindWayData[path.Current];
+			floor.SetFloor(FloorType.Way);
+		}
 	}
 }

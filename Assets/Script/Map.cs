@@ -50,4 +50,20 @@ public class Map : MonoBehaviour
 	{
 		FindWayData.Clear();
 	}
+
+	/// <summary>
+	/// 检查点合法性
+	/// </summary>
+	/// <param name="x"></param>
+	/// <param name="y"></param>
+	/// <returns></returns>
+	public bool Avaliable(int x, int y)
+	{
+		return x >= 0 && y >= 0 && x < Column && y < Row;
+	}
+
+	public bool Avaliable(int2 pos)
+	{
+		return Avaliable(pos.x, pos.y);
+	}
 }

@@ -26,7 +26,9 @@ public class Floor : MonoBehaviour
 	private GameObject Destination;
 
 	[SerializeField]
-	private FloorType FloorType;
+	private GameObject Way;
+
+	public FloorType FloorType { get; set; }
 
 	/// <summary>
 	/// 地板的位置
@@ -44,6 +46,7 @@ public class Floor : MonoBehaviour
 		Block.SetActive(false);
 		Entrance.SetActive(false);
 		Destination.SetActive(false);
+		Way.SetActive(false);
 		switch (type)
 		{
 			case FloorType.None:
@@ -58,6 +61,14 @@ public class Floor : MonoBehaviour
 			case FloorType.Destination:
 				Destination.SetActive(true);
 				break;
+			case FloorType.Way:
+				Way.SetActive(true);
+				break;
 		}
 	}
+
+	/// <summary>
+	/// 可以行走
+	/// </summary>
+	public bool Walkable => FloorType != FloorType.Block;
 }

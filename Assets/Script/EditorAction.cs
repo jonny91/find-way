@@ -8,6 +8,11 @@
 public enum EditorAction
 {
 	/// <summary>
+	/// 没有操作
+	/// </summary>
+	NONE,
+
+	/// <summary>
 	/// 设置入口
 	/// </summary>
 	SET_ENTRANCE,
@@ -16,9 +21,4 @@ public enum EditorAction
 	/// 设置出口
 	/// </summary>
 	SET_DESTINATION,
-
-	/// <summary>
-	/// 没有操作
-	/// </summary>
-	NONE,
 }

@@ -66,6 +66,19 @@ public class FindWayData
 		_floorDic.Add(floor.Pos, floor);
 	}
 
+	public Floor this[int2 pos]
+	{
+		get
+		{
+			if (_floorDic.ContainsKey(pos))
+			{
+				return _floorDic[pos];
+			}
+
+			return null;
+		}
+	}
+
 	/// <summary>
 	/// 随机生成阻挡
 	/// </summary>
@@ -108,4 +121,9 @@ public class FindWayData
 		Entrance = null;
 		Destination = null;
 	}
+
+	/// <summary>
+	/// 出入口都设置好了
+	/// </summary>
+	public bool OK => _destination != null && _entrance != null;
 }

@@ -23,4 +23,9 @@ public enum FloorType
 	/// 出口
 	/// </summary>
 	Destination,
+
+	/// <summary>
+	/// 路径
+	/// </summary>
+	Way,
 }
