@@ -114,7 +114,8 @@ public class Sample : MonoBehaviour
 
 	private void ShowPath(WayNode path)
 	{
-		while (!path.Parent.Equals(Map.FindWayData.Entrance.Pos))
+		var end = new int2(-1, -1);
+		while (!path.Parent.Equals(Map.FindWayData.Entrance.Pos) && !path.Current.Equals(end))
 		{
 			path = FindWayOp[path.Parent];
 			var floor = Map.FindWayData[path.Current];

@@ -17,8 +17,6 @@ namespace BFS
 		private Map _map;
 		private int2 _endPos;
 
-		private Dictionary<int2, WayNode> _wayNodes = new Dictionary<int2, WayNode>();
-
 		public override bool StartFindWay(Map map, out WayNode path)
 		{
 			_map = map;
@@ -54,7 +52,7 @@ namespace BFS
 					var w = CheckPosNode(tmp, lFloor);
 					if (w.Item1 != null)
 					{
-						_wayNodes[lPos] = w.Item1;
+						WayNodes[lPos] = w.Item1;
 						queue.Enqueue(lFloor);
 						if (w.Item2)
 						{
@@ -71,7 +69,7 @@ namespace BFS
 					var w = CheckPosNode(tmp, rFloor);
 					if (w.Item1 != null)
 					{
-						_wayNodes[rPos] = w.Item1;
+						WayNodes[rPos] = w.Item1;
 						queue.Enqueue(rFloor);
 						if (w.Item2)
 						{
@@ -88,7 +86,7 @@ namespace BFS
 					var w = CheckPosNode(tmp, uFloor);
 					if (w.Item1 != null)
 					{
-						_wayNodes[uPos] = w.Item1;
+						WayNodes[uPos] = w.Item1;
 						queue.Enqueue(uFloor);
 						if (w.Item2)
 						{
@@ -105,7 +103,7 @@ namespace BFS
 					var w = CheckPosNode(tmp, dFloor);
 					if (w.Item1 != null)
 					{
-						_wayNodes[dPos] = w.Item1;
+						WayNodes[dPos] = w.Item1;
 						queue.Enqueue(dFloor);
 						if (w.Item2)
 						{
@@ -135,7 +133,5 @@ namespace BFS
 
 			return (null, false);
 		}
-
-		public override WayNode this[int2 pos] => _wayNodes[pos];
 	}
 }

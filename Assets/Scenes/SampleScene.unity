@@ -1031,7 +1031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Map: {fileID: 1195265163}
-  FindWayOp: {fileID: 11400000, guid: 3eaadeb9ddb21064f9dce7098ffa9fd8, type: 2}
+  FindWayOp: {fileID: 11400000, guid: 0005901007b05ad4098701fc6baccf0a, type: 2}
 --- !u!1 &1068680634
 GameObject:
   m_ObjectHideFlags: 0
